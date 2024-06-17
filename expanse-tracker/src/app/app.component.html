@@ -1,0 +1,80 @@
+<div style="display: flex; flex-direction: row; justify-content: center; gap: 50px; flex-wrap: wrap;">
+   <div style="display: flex; flex-direction: column;">
+    <label style="text-align: center;">Income</label>
+    <button style="width: 200px; height: 60px; background-color: lightblue; border-radius: 5%; border: none;">{{totalIncome}}</button>
+   </div>
+   <div style="display: flex; flex-direction: column;">
+    <label style="text-align: center;">Expanse</label>
+    <button style="width: 200px; height: 60px; background-color: lightblue; border-radius: 5%; border: none;">{{totalExpanse}}</button>
+   </div>
+   <div style="display: flex; flex-direction: column;">
+    <label style="text-align: center;">Remaining</label>
+    <button style="width: 200px; height: 60px; background-color: lightblue; border-radius: 5%; border: none;">{{calculateRemaining}}</button>
+   </div>
+</div>
+<div class="d-flex" style="width: 100%; padding: 100px; gap: 20px; flex-direction: row; flex-wrap: wrap;">
+  <div class="d-flex" style="width: 600px; flex: 40%; border: 1px solid black;">
+    <form [formGroup]="expanseTrackerForm" style="width: 100%; padding: 10px;">
+      <h3 style="text-align: center;">Add Expanse</h3>
+      <div class="form-group">
+        <label for="expanseType">Expanse Type:</label>
+        <select class="form-select" id="sel1" name="sellist1" formControlName="expanseType">
+          <option>Income</option>
+          <option>Expanse</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="expanseType">
+        <label for="expanseType">Expanse Category:</label>
+        <select class="form-select" id="sel1" name="sellist1" formControlName="expanseCategory">
+          <option>Grocery</option>
+          <option>Rent</option>
+          <option>Automobile</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" class="form-control" id="amount" formControlName="amount">
+      </div>
+      <div class="form-group">
+        <label for="desc">Description:</label>
+        <input type="text" class="form-control" id="desc" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" class="form-control" id="date" formControlName="date">
+      </div>
+      <div style="display: flex; justify-content: end;">
+        <button style="float: right; background-color: gray; margin-top: 5px;" (click)="clearForm()" class="btn btn-default">Cancel</button>
+        <button style="float: right; background-color: green; margin-top: 5px; margin-left: 5px;" (click)="addUser()" class="btn btn-default" [disabled]="!isFromValid">{{isFromMode}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="container" style="flex: 50%;">
+    <table class="table">
+      <thead>
+        <tr>
+          @for (row of tableRows; track row) {
+            <th>{{row}}</th>
+         }
+        </tr>
+      </thead>
+      <tbody>
+        
+          @for(expanse of expanseTrackerList; track expanse) {
+            <tr>
+              <td>{{expanse.expanseType}}</td>
+              <td>{{expanse.expanseCategory}}</td>
+              <td>{{expanse.amount}}</td>
+              <td>{{expanse.description}}</td>
+              <td>{{expanse.date}}</td>
+              <td><i title="Edit" style="cursor: pointer;" class="material-icons edit-botton" (click)="editUser(expanse)">edit</i><i title="delete" class="material-icons delete-button" style="color: red; cursor: pointer;" (click)="deleteUser(expanse)">delete</i></td>
+            </tr>
+          }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+	<canvas #myChart></canvas>
+</div>
